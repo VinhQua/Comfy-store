@@ -7,11 +7,12 @@ const ProductGrid = ({ products = [] }) => {
   return (
     <div className="pt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {products.map((product) => {
-        const { title, price, image } = product.attributes;
+        const { id, attributes } = product;
+        const { image, title, price } = attributes;
         return (
           <Link
-            key={product.id}
-            href={`/products/${product.id}`}
+            key={id}
+            href={`/products/${id}`}
             className="card w-full shadow-xl hover:shadow-2xl transition duration-300"
           >
             <figure className="px-4 pt-4">
