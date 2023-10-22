@@ -1,2 +1,4 @@
 import Loading from "./Loading";
-export { Loading };
+import ProductGrid from "./ProductGrid";
+
+export { Loading, ProductGrid };

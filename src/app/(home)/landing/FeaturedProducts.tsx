@@ -1,7 +1,8 @@
 import React from "react";
 import SectionTitle from "./SectionTitle";
-import ProductGrid from "./ProductGrid";
+
 import { customFetch } from "@/utils";
+import { ProductGrid } from "@/app/global component";
 const url = `/products?featured=true`;
 const getFeaturedProducts = async () => {
   try {
