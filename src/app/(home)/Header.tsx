@@ -2,7 +2,9 @@ import Link from "next/link";
 import React, { use } from "react";
 
 const Header = () => {
-  const user = null;
+  const user = {
+username:''
+}
   return (
     <header className="bg-neutral py-2 text-neutral-content">
       <div className="align element flex justify-center sm:justify-end">
