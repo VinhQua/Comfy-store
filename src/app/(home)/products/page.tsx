@@ -1,3 +1,4 @@
+"use client";
 import Filters from "./Filters";
 import PaginationContainer from "./PaginationContainer";
 import ProductContainer from "./ProductContainer";

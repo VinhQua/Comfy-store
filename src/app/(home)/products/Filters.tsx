@@ -4,12 +4,18 @@ import FormInput from "@/app/global component/FormInput";
 import FormRange from "@/app/global component/FormRange";
 import FormSelect from "@/app/global component/FormSelect";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
 
 const Filters = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
-    <form className="bg-base-200 rounded-md px-8 py-4 grid gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-base-200 rounded-md px-8 py-4 grid gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center"
+    >
       {/* SEARCH */}
       <FormInput
         type={"search"}
@@ -22,17 +28,17 @@ const Filters = () => {
       <FormSelect
         label="select category"
         name="category"
-        list={["name", "asfd"]}
+        list={["Tables", "Chairs", "Kids", "Sofas", "Beds", "all"]}
         size="select-sm"
-        defaultValue="name"
+        defaultValue={"all"}
       />
       {/* COMANY */}
       <FormSelect
         label="select company"
         name="company"
-        list={["name", "asfd"]}
+        list={["Modenza", "Luxora", "Artifex", "Comfora", "Homestead", "all"]}
         size="select-sm"
-        defaultValue="name"
+        defaultValue={"all"}
       />
 
       {/* ORDER */}
@@ -41,14 +47,14 @@ const Filters = () => {
         name="order"
         list={["a-z", "z-a", "high", "low"]}
         size="select-sm"
-        defaultValue="a-z"
+        defaultValue={"a-z"}
       />
       {/* PRICE */}
       <FormRange
         name="price"
         label="select price"
         size="range-sm"
-        price={500}
+        price={100000}
       />
       {/* SHIPPING */}
       <FormCheckbox
