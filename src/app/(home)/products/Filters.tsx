@@ -7,7 +7,7 @@ import Link from "next/link";
 import React from "react";
 
 const Filters = () => {
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
   };
 
