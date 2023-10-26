@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 export const getAllProducts = createAsyncThunk(
   "product/AllProducts",
-  async (_, thunkAPI: any) => {
+  async (_: any, thunkAPI: any) => {
     const { search, category, company, price, freeShipping, order } =
       thunkAPI.getState().product;
     let url = `/products?category=${category}&company=${company}&price=${price}&shipping=${freeShipping}&order=${order}`;

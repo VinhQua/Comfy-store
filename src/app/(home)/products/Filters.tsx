@@ -7,6 +7,7 @@ import {
   getAllProducts,
   handleFilters,
 } from "@/features/productSlice/productSlice";
+import { AppDispatch } from "@/store";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,8 +22,8 @@ const Filters = () => {
     order,
     price,
     freeShipping,
-  } = useSelector((store) => store.product);
-  const dispatch = useDispatch();
+  } = useSelector((store: any) => store.product);
+  const dispatch = useDispatch<AppDispatch>();
   const handleChange = (e: any) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -32,11 +33,11 @@ const Filters = () => {
   };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(getAllProducts());
+    dispatch(getAllProducts("any"));
   };
   // Loading Products on initial rendering
   useEffect(() => {
-    dispatch(getAllProducts());
+    dispatch(getAllProducts("any"));
   }, []);
   return (
     <form

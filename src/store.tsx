@@ -17,3 +17,5 @@ export default function ReduxProvider({
 }) {
   return <Provider store={store}>{children}</Provider>;
 }
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;

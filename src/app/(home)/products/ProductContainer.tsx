@@ -20,7 +20,7 @@ const ProductContainer = () => {
     total: totalProducts,
     products,
     isLoading,
-  } = useSelector((store) => store.product);
+  } = useSelector((store: any) => store.product);
   if (isLoading) {
     return <Loading />;
   }
