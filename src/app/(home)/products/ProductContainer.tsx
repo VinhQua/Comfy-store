@@ -1,9 +1,10 @@
-import { ProductGrid } from "@/app/global component";
+import { Loading, ProductGrid } from "@/app/global component";
 import ProductList from "@/app/global component/ProductList";
 import { customFetch } from "@/utils";
 import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import { BsFillGridFill, BsList } from "react-icons/bs";
+import { useSelector } from "react-redux";
 
 const ProductContainer = () => {
   const [layout, setLayout] = useState("grid");
@@ -14,7 +15,15 @@ const ProductContainer = () => {
         : "btn-ghost text-based-content"
     }`;
   };
-  const totalProducts = 0;
+
+  const {
+    total: totalProducts,
+    products,
+    isLoading,
+  } = useSelector((store) => store.product);
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <>
       {/* HEADER */}
@@ -46,9 +55,9 @@ const ProductContainer = () => {
             Sorry, no products matched your search...
           </h5>
         ) : layout === "grid" ? (
-          <ProductGrid />
+          <ProductGrid products={products} />
         ) : (
-          <ProductList />
+          <ProductList products={products} />
         )}
       </div>
     </>

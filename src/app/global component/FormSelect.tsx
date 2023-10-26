@@ -6,12 +6,14 @@ const FormSelect = ({
   list,
   defaultValue,
   size,
+  handleChange,
 }: {
   label: string;
   name: string;
   list: Array<string>;
   defaultValue: string;
   size: string;
+  handleChange: any;
 }) => {
   return (
     <div className="form-control">
@@ -20,9 +22,10 @@ const FormSelect = ({
       </label>
       <select
         className={`select select-bordered ${size}`}
-        defaultValue={defaultValue}
+        value={defaultValue}
         name={name}
         id={name}
+        onChange={handleChange}
       >
         {list.map((item) => {
           return (

@@ -3,14 +3,41 @@ import FormCheckbox from "@/app/global component/FormCheckbox";
 import FormInput from "@/app/global component/FormInput";
 import FormRange from "@/app/global component/FormRange";
 import FormSelect from "@/app/global component/FormSelect";
+import {
+  getAllProducts,
+  handleFilters,
+} from "@/features/productSlice/productSlice";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Filters = () => {
+  const {
+    search,
+    category,
+    categories,
+    company,
+    companies,
+    order,
+    price,
+    freeShipping,
+  } = useSelector((store) => store.product);
+  const dispatch = useDispatch();
+  const handleChange = (e: any) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    console.log(name);
+
+    dispatch(handleFilters({ name, value }));
+  };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    dispatch(getAllProducts());
   };
-
+  // Loading Products on initial rendering
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, []);
   return (
     <form
       onSubmit={handleSubmit}
@@ -22,23 +49,26 @@ const Filters = () => {
         label={"search product"}
         name={`search`}
         size={`input-sm`}
-        defaultValue={""}
+        defaultValue={search}
+        handleChange={handleChange}
       />
       {/* Categories */}
       <FormSelect
         label="select category"
         name="category"
-        list={["Tables", "Chairs", "Kids", "Sofas", "Beds", "all"]}
+        list={categories}
         size="select-sm"
-        defaultValue={"all"}
+        defaultValue={category}
+        handleChange={handleChange}
       />
       {/* COMANY */}
       <FormSelect
         label="select company"
         name="company"
-        list={["Modenza", "Luxora", "Artifex", "Comfora", "Homestead", "all"]}
+        list={companies}
         size="select-sm"
-        defaultValue={"all"}
+        defaultValue={company}
+        handleChange={handleChange}
       />
 
       {/* ORDER */}
@@ -47,21 +77,24 @@ const Filters = () => {
         name="order"
         list={["a-z", "z-a", "high", "low"]}
         size="select-sm"
-        defaultValue={"a-z"}
+        defaultValue={order}
+        handleChange={handleChange}
       />
       {/* PRICE */}
       <FormRange
         name="price"
         label="select price"
         size="range-sm"
-        price={100000}
+        price={price}
+        handleChange={handleChange}
       />
       {/* SHIPPING */}
       <FormCheckbox
         name="shipping"
         label="free shipping"
         size="checkbox-sm"
-        defaultValue={true}
+        defaultValue={freeShipping}
+        handleChange={handleChange}
       />
       {/* BUTTONS */}
       <button type="submit" className="btn btn-primary btn-sm">

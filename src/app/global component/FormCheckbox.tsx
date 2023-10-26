@@ -5,11 +5,13 @@ const FormCheckbox = ({
   name,
   defaultValue,
   size,
+  handleChange,
 }: {
   label: string;
   name: string;
   defaultValue: boolean;
   size: string;
+  handleChange: any;
 }) => {
   return (
     <div className="form-control items-center">

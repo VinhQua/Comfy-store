@@ -1,3 +1,4 @@
+import { formatPrice } from "@/utils";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,7 +25,7 @@ const ProductGrid = ({ products = [] }) => {
             </figure>
             <div className="card-body items-center text-center">
               <h2 className="card-title capitalize tracking-wider">{title}</h2>
-              <span className="text-secondary">{price}</span>
+              <span className="text-secondary"> {formatPrice(price)}</span>
             </div>
           </Link>
         );

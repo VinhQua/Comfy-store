@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import ReduxProvider from "@/store";
+import { Slide, ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ReduxProvider>{children}</ReduxProvider>
+        <ToastContainer
+          position="top-center"
+          hideProgressBar
+          transition={Slide}
+        />
       </body>
     </html>
   );
