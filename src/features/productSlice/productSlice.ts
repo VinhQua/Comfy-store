@@ -13,9 +13,20 @@ export const getAllProducts = createAsyncThunk(
     }
     try {
       const { data } = await customFetch.get(url);
-      console.log(data);
       return data;
-    } catch (error) {
+    } catch (error: any) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+export const getSingleProduct = createAsyncThunk(
+  "product/SingleProduct",
+  async (id: string, thunkAPI: any) => {
+    try {
+      const { data } = await customFetch.get(`/products/${id}`);
+      return data.data;
+    } catch (error: any) {
       console.log(error);
       return thunkAPI.rejectWithValue(error);
     }
@@ -32,11 +43,16 @@ const filterState = {
   freeShipping: true,
   order: "a-z",
 };
-
+const singleProductState = {
+  product: null,
+  productColor: "",
+  singleProductAmount: 1,
+};
 const initialState = {
   ...filterState,
+  ...singleProductState,
   products: [],
-  isLoading: false,
+  isLoading: true,
   page: 1,
   total: 0,
   pageCount: 0,
@@ -50,6 +66,12 @@ export const productSlice = createSlice({
     handleFilters: (state, { payload }) => {
       const { name, value }: { name: string; value: string } = payload;
       return { ...state, [name]: value };
+    },
+    setProductColor: (state, { payload }) => {
+      state.productColor = payload;
+    },
+    setSingleProductAmount: (state, { payload }) => {
+      state.singleProductAmount = payload;
     },
   },
   extraReducers(builder) {
@@ -73,7 +95,23 @@ export const productSlice = createSlice({
         toast.error(payload);
       }
     );
+    builder.addCase(getSingleProduct.pending, (state, { payload }) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getSingleProduct.fulfilled, (state, { payload }) => {
+      state.isLoading = false;
+      state.product = payload;
+      state.productColor = payload.attributes.colors[0];
+    });
+    builder.addCase(
+      getSingleProduct.rejected,
+      (state, { payload }: { payload: any }) => {
+        state.isLoading = false;
+        toast.error(payload);
+      }
+    );
   },
 });
-export const { handleFilters } = productSlice.actions;
+export const { handleFilters, setProductColor, setSingleProductAmount } =
+  productSlice.actions;
 export default productSlice.reducer;
